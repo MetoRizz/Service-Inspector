@@ -8,3 +8,4 @@ This is an PowerShell script that can check if any Service is running
 
 ![image](https://github.com/user-attachments/assets/4b765b8b-21fb-483a-a0f9-962d08c6f11f)
 
+Till now only the Dropdownbar works im trying to include a Searchbar 

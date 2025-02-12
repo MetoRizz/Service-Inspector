@@ -6,14 +6,14 @@ $ComboBoxObject = [System.Windows.Forms.ComboBox]
 
 $DefaultFont = 'Verdana,11'
 
-#Set up Base Form
+# Set up Base Form
 $AppForm = New-Object $FormObject
-$AppForm.ClientSize = '800,300'
+$AppForm.ClientSize = '800,300'  # Anpassen der Form-Größe
 $AppForm.Text = 'Service Inspector'
 $AppForm.BackColor = '#ffffff'
 $AppForm.Font = $DefaultFont
 
-#Building the Form
+# Building the Form
 
 $lblService = New-Object $Labelobject
 $lblService.Text = 'Services:'
@@ -21,12 +21,20 @@ $lblService.AutoSize = $true
 $lblService.Location = New-Object System.Drawing.Point(20, 20)
 
 $ddlService = New-Object $ComboBoxObject
-$ddlService.width = '300'
+$ddlService.Width = 300
 $ddlService.Location = New-Object System.Drawing.Point(125, 20)
 
-#Load Dropdownlist with Services
-Get-Service | ForEach-Object {
-    $ddlService.Items.Add($_.Name)
+# AutoComplete-Funktion aktivieren
+$ddlService.DropDownStyle = [System.Windows.Forms.ComboBoxStyle]::DropDown
+$ddlService.AutoCompleteMode = [System.Windows.Forms.AutoCompleteMode]::SuggestAppend
+$ddlService.AutoCompleteSource = [System.Windows.Forms.AutoCompleteSource]::ListItems
+
+# Load Dropdownlist with Services
+$services = Get-Service | Select-Object -ExpandProperty Name  # Liste der Dienste laden
+
+# Alle Dienste zum Dropdown hinzufügen
+$services | ForEach-Object {
+    $ddlService.Items.Add($_)
 }
 
 $ddlService.Text = 'Pick a Service'
@@ -38,11 +46,11 @@ $lblForName.Location = New-Object System.Drawing.Point(20, 80)
 
 $lblName = New-Object $Labelobject
 $lblName.Text = ''
-$lblName.AutoSize = $true 
+$lblName.AutoSize = $true
 $lblName.Location = New-Object System.Drawing.Point(220, 80)
 
 $lblForStatus = New-Object $Labelobject
-$lblForStatus.Text = 'Status :'
+$lblForStatus.Text = 'Status:'
 $lblForStatus.AutoSize = $true
 $lblForStatus.Location = New-Object System.Drawing.Point(20, 140)
 
@@ -51,36 +59,32 @@ $lblStatus.Text = ''
 $lblStatus.AutoSize = $true
 $lblStatus.Location = New-Object System.Drawing.Point(220, 140)
 
-
 $AppForm.Controls.AddRange(@($lblService, $ddlService, $lblForName, $lblName, $lblForStatus, $lblStatus))
 
-#Add some functions to the form
-
+# Function to Get Service Details
 function GetServiceDetails {
     $ServiceName = $ddlService.SelectedItem
-    $details = Get-Service -Name $ServiceName | Select-Object *
-    $lblName.Text = $details.DisplayName  
-    $lblStatus.Text = $details.Status
+    if ($ServiceName) {
+        $details = Get-Service -Name $ServiceName | Select-Object *
+        $lblName.Text = $details.DisplayName
+        $lblStatus.Text = $details.Status
 
-    if ($lblstatus.text -eq 'Running') {
-        $lblStatus.ForeColor = 'Green'
-    }
-    else {
-        $lblStatus.ForeColor = 'Red'
+        if ($lblstatus.text -eq 'Running') {
+            $lblStatus.ForeColor = 'Green'
+        }
+        else {
+            $lblStatus.ForeColor = 'Red'
+        }
     }
 }
 
-
-#Add functions to the controls
-
+# Event Handler for ComboBox
 $ddlService.Add_SelectedIndexChanged({
-        GetServiceDetails
-    })	
+    GetServiceDetails
+})
 
-#Show the form
+# Show the form
 $AppForm.ShowDialog()
 
- 
-#Garbage Collection
+# Garbage Collection
 $AppForm.Dispose()
-

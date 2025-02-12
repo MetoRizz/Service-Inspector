@@ -12,7 +12,7 @@ This PowerShell script allows you to check the status of any Windows service wit
 ## Requirements
 
 - **PowerShell 5.1** or higher.
-- **Windows Operating System** (Works with Windows 7, 8, 10, and 11).
+- **OS** (Works with Windows (10, and 11) Maybe also 7 and 8 but I didnt had the time to check honestly.
 
 
 ## Improvements

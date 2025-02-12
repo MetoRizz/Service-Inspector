@@ -16,5 +16,5 @@ This PowerShell script allows you to check the status of any Windows service wit
 
 
 ## Improvements
-- **Let me know if there is anything I could improve
+- **Let me know if there is anything I could improve**
 

@@ -1,17 +1,20 @@
-#Windows Service Checker
+# Windows Service Checker
+
+This PowerShell script allows you to check the status of any Windows service without needing to open the Task Manager. Simply run the script, and you'll be able to view whether a specific service is running or stopped. You can interact with it via a dropdown menu or search functionality.
+
+## Features
+
+- **Check Service Status**: Quickly view if a service is running or stopped.
+- **Search Functionality**: Easily search for a service by name.
+- **Dropdown Menu**: Select a service from a list of installed services.
 
 
-**This Script uses PowerShell to let u check whichever Service you want to know is running or stopped without going in the Task Manager
+## Requirements
+
+- **PowerShell 5.1** or higher.
+- **Windows Operating System** (Works with Windows 7, 8, 10, and 11).
 
 
-
-
-
-
-#Manual
-
-
-
-After u start the Script use either The Dropdown Menu or the Search function let me know if you have any ideas to improve the code or add functions***
-
+## Improvements
+- **Let me know if there is anything I could improve
 
